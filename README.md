@@ -1,1 +1,2 @@
 # GestorTareasProyectos
+Es el api del proyecto, maneja varias tablas que están en una base de datos SQLserver, el motivo de la aplicación es crear una aplicación de escritorio y este proyecto maneja el backend de la aplicación 
