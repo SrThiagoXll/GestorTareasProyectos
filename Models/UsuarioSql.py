@@ -83,3 +83,11 @@ class Asignacion(Base):
 
     tarea = relationship("Tarea",back_populates="asignacion")
     usuario = relationship("Usuario",back_populates="asignacion")
+
+class SubTarea(Base):
+    __tablename__ = "SubTarea"
+    SubTarea_ID = Column(Integer,primary_key=True,autoincrement=True)
+    Nombre_SubTarea = Column(String(50),nullable=False)
+    Descripción = Column(String(155),nullable=False)
+    Fecha_Inicio = Column(Date,nullable=False)
+    Fecha_Final = Column(Date,nullable=False)

@@ -4,8 +4,9 @@ from Routers.usuarios import router as usuario_router
 from Routers.Usuario import router as Usuario_router
 from Routers.Archivo import router as Archivo_router
 from Routers.Proyecto import router as Proyecto_router
-from Routers.Tarea import router as Tarea_router
 from Routers.Asignar import router as Asignar_router
+from Routers.Tarea import router as Tarea_router
+from Routers.SubTarea import router as SubTarea_router
 from Routers.Actividad import router as Actividad_router
 from Routers.Comentario import router as Comentaro_router
 from Routers.Usuario_Actividad import router as UsuarioActivida_router
@@ -28,8 +29,9 @@ app.include_router(usuario_router)
 app.include_router(Usuario_router)
 app.include_router(Archivo_router)
 app.include_router(Proyecto_router)
-app.include_router(Tarea_router)
 app.include_router(Asignar_router)
+app.include_router(Tarea_router)
+app.include_router(SubTarea_router)
 app.include_router(Actividad_router)
 app.include_router(Comentaro_router)
 app.include_router(UsuarioActivida_router)
