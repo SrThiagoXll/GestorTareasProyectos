@@ -13,6 +13,7 @@ from Routers.Usuario_Actividad import router as UsuarioActivida_router
 from Routers.Comentario_Tarea_Usuario import router as ObtenerComentarioTarea_router
 from Routers.Asignar_Tarea import router as ObtenerTarea_router
 from Routers.Tarea_Proyecto import router as TareaProyecto_router
+from Routers.Tarea_Usuario import router as TareaUsuario_router
 
 
 app = FastAPI(title="Gestion de tareas",description="Un servicio de gestor de bases de datos")
@@ -38,5 +39,6 @@ app.include_router(UsuarioActivida_router)
 app.include_router(ObtenerComentarioTarea_router)
 app.include_router(ObtenerTarea_router)
 app.include_router(TareaProyecto_router)
+app.include_router(TareaUsuario_router)
 
 
