@@ -91,3 +91,9 @@ class SubTarea(Base):
     Descripción = Column(String(155),nullable=False)
     Fecha_Inicio = Column(Date,nullable=False)
     Fecha_Final = Column(Date,nullable=False)
+
+class SubTarea_Tarea(Base):
+    __tablename__ = "SubTarea_Tarea"
+    SubTarea_Tarea_ID = Column(Integer,primary_key=True,autoincrement=True)
+    SubTarea_ID = Column(Integer,nullable=False)
+    Tarea_ID = Column(Integer,nullable=False)
