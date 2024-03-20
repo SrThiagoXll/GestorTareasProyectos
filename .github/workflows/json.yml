@@ -1,0 +1,36 @@
+name: json
+on: 
+  push:
+    branches:
+    - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: checkaout Repo
+        uses: actions/checkout@v4
+      - name: setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.2"
+      - name: Run Script
+        run: python main.py
+      - name: Commit y Push
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:  
+          commit_message: Ha sido exitoso
+          commit_user_name: SrThiagoXll [GitHub Actions]
+          commit_user_email: xephos239xll@hotmail.com
+          commit_author: Xephos
+
+
+
+
+
+
+
+          
