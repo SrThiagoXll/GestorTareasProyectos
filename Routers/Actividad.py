@@ -1,5 +1,5 @@
 from fastapi import APIRouter,Depends,HTTPException,status
-from Models.UsuarioSql import Actividad
+from Modelos.UsuarioSql import Actividad
 from sqlalchemy.orm import Session
 from Model.Actividad import ActividadBase
 from DB.coneccion import SessionLocal
@@ -28,11 +28,12 @@ async def obtner_Actividad(Actividad_ID:int, db : Session = Depends(get_db)):
 @router.post("/Crear_Actividad",status_code=status.HTTP_201_CREATED,response_model=ActividadBase,summary="Crea una nueva Actividad")
 async def crear_Actividad(actividad: ActividadBase, db: Session = Depends(get_db)):    
     try:               
-        db_actividad = Actividad(Actividad_ID=actividad.Actividad_ID,
-                                Tipo_Actividad=actividad.Tipo_Actividad,
-                                Descripción =actividad.Descripción,
-                                Fecha_Actividad=actividad.Fecha_Actividad.strftime("%Y-%m-%d"),
-                                Usuario_ID = actividad.Usuario_ID)
+        db_actividad = Actividad(
+            Actividad_ID=actividad.Actividad_ID,
+            Tipo_Actividad=actividad.Tipo_Actividad,
+            Descripción =actividad.Descripción,
+            Fecha_Actividad=actividad.Fecha_Actividad.strftime("%Y-%m-%d"),
+            Usuario_ID = actividad.Usuario_ID)
 
         db.add(db_actividad)
         db.commit()
@@ -52,7 +53,7 @@ async def actualizar_Actividad(Actividad_ID: int, actividad: ActividadBase, db: 
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Actividad no encontrada")
 
         # Update the project with the new data
-        db_asignar.Asignar_ID = actividad.Actividad_ID
+        db_asignar.Actividad_ID = actividad.Actividad_ID
         db_asignar.Tipo_Actividad = actividad.Tipo_Actividad
         db_asignar.Descripción = actividad.Descripción
         db_asignar.Fecha_Actividad = actividad.Fecha_Actividad.strftime("%Y-%m-%d")

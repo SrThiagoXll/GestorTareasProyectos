@@ -1,5 +1,5 @@
 from fastapi import APIRouter,Depends,HTTPException,status
-from Models.UsuarioSql import Comentario
+from Modelos.UsuarioSql import Comentario
 from sqlalchemy.orm import Session
 from Model.Comentario import ComentarioBase
 from DB.coneccion import SessionLocal

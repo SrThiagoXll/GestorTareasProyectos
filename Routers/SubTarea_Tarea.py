@@ -1,5 +1,5 @@
 from fastapi import APIRouter,Depends,HTTPException,status
-from Models.UsuarioSql import SubTarea_Tarea
+from Modelos.UsuarioSql import SubTarea_Tarea
 from sqlalchemy.orm import Session
 from DB.coneccion import SessionLocal
 

@@ -1,6 +1,6 @@
 from fastapi import APIRouter,Depends,HTTPException,status
 from fastapi.responses import Response
-from Models.UsuarioSql import Proyecto
+from Modelos.UsuarioSql import Proyecto
 from sqlalchemy.orm import Session
 from Model.Proyecto import ProyectoBase
 from DB.coneccion import SessionLocal

@@ -1,5 +1,5 @@
 from fastapi import APIRouter,Query,Path,status
-from Models.Usuario import Usuario
+from Modelos.Usuario import Usuario
 
 router = APIRouter(prefix="/Usuarios")
 

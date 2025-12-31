@@ -2,9 +2,10 @@ from fastapi import APIRouter, HTTPException, Depends,status
 from fastapi.responses import Response
 from sqlalchemy.orm import Session
 from DB.coneccion import SessionLocal
-from Models.UsuarioSql import Usuario
-from Model.Usuario import UsuarioBase
-import hashlib
+from Modelos.UsuarioSql import Usuario
+from Model.Usuario import UsuarioBase,UsuarioCreate
+from Segurity.seguridad import hash_password
+
 
 router = APIRouter(default="Usuario",prefix="/Usuario")
 
@@ -64,15 +65,15 @@ async def obtner_Usuario_Xml(Usuario_ID:int, db : Session = Depends(get_db)):
             raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/Crear_Usuario",response_model=UsuarioBase,summary="Crea un nuevo usuario",status_code=status.HTTP_201_CREATED)
-async def crear_Usuario(usuario: UsuarioBase, db: Session = Depends(get_db)):
-    hash_password = hashlib.sha256(usuario.Contraseña.encode('utf-8')).hexdigest()
+async def crear_Usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
+    password_hash = hash_password(usuario.Contraseña)
     
-    db_usuario = Usuario(Usuario_ID=usuario.Usuario_ID,
-                        Nombre_Usuario=usuario.Nombre_Usuario,
-                        Nombre_Completo=usuario.Nombre_Completo,
-                        Correo=usuario.Correo,
-                        Contraseña=hash_password,
-                        Rol=usuario.Rol)
+    db_usuario = Usuario(
+        Nombre_Usuario=usuario.Nombre_Usuario,
+        Nombre_Completo=usuario.Nombre_Completo,
+        Correo=usuario.Correo,
+        Contraseña=password_hash,
+        Rol=usuario.Rol)
     db.add(db_usuario)
     db.commit()
     db.refresh(db_usuario)
@@ -84,11 +85,11 @@ async def actualizar_usuario(Usuario_ID: int, usuario_actualizado: UsuarioBase, 
     db_usuario = db.query(Usuario).filter(Usuario.Usuario_ID == Usuario_ID).first() 
     
     if db_usuario:
-        hash_password = hashlib.sha256(usuario_actualizado.Contraseña.encode('utf-8')).hexdigest()
+        password_hash = hash_password(usuario_actualizado.Contraseña)
         db_usuario.Nombre_Usuario = usuario_actualizado.Nombre_Usuario
         db_usuario.Nombre_Completo = usuario_actualizado.Nombre_Completo
         db_usuario.Correo = usuario_actualizado.Correo
-        db_usuario.Contraseña = hash_password
+        db_usuario.Contraseña = password_hash
         db_usuario.Rol = usuario_actualizado.Rol
         
         db.commit()

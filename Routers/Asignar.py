@@ -1,5 +1,5 @@
 from fastapi import APIRouter,Depends,HTTPException,status
-from Models.UsuarioSql import Asignacion
+from Modelos.UsuarioSql import Asignacion
 from sqlalchemy.orm import Session
 from Model.AsignarTareas import AsignarBase
 from DB.coneccion import SessionLocal
