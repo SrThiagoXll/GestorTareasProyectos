@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from  fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from Routers.usuarios import router as usuario_router
 from Routers.Usuario import router as Usuario_router
