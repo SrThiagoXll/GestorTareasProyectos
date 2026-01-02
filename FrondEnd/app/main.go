@@ -3,16 +3,16 @@ package main
 import (
 	pantalla "Gestor/interno/pantallas"
 
-	"fyne.io/fyne"
-	"fyne.io/fyne/app"
-	"fyne.io/fyne/container"
-	"fyne.io/fyne/widget"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/widget"
 )
 
 func main() {
 	a := app.New()
 	w := a.NewWindow("Sistema de Usuarios")
-	w.Resize(fyne.NewSize(500, 400))
+	w.Resize(fyne.NewSize(600, 400))
 
 	// Contenido central
 	content := widget.NewLabelWithStyle(
@@ -33,7 +33,7 @@ func main() {
 	})
 
 	menuSalir := fyne.NewMenuItem("Salir", func() {
-		// w.Close()
+		w.Close()
 	})
 
 	menuUsuarios := fyne.NewMenu("Usuarios",
