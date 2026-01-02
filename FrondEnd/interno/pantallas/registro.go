@@ -5,11 +5,12 @@ import (
 	funcion "Gestor/interno/Funcs"
 	"Gestor/interno/Models"
 
-	"fyne.io/fyne"
-	"fyne.io/fyne/container"
-	"fyne.io/fyne/dialog"
-	"fyne.io/fyne/layout"
-	"fyne.io/fyne/widget"
+	"fyne.io/fyne/v2"
+
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/widget"
 )
 
 func Registro(w fyne.Window) {
@@ -69,7 +70,7 @@ func Registro(w fyne.Window) {
 		)
 
 		d.SetOnClosed(func() {
-			MostrarHome(w)
+			PantallaInicio(w, usuario.Nombre_Completo)
 		})
 
 	})

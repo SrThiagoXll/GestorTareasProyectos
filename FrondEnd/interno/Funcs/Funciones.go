@@ -1,9 +1,12 @@
 package funcion
 
 import (
-	"fyne.io/fyne"
-	"fyne.io/fyne/container"
-	"fyne.io/fyne/widget"
+	"time"
+
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/widget"
 )
 
 // func LabeledField(label string, field fyne.CanvasObject) fyne.CanvasObject {
@@ -36,4 +39,35 @@ func MostrarHome(w fyne.Window) {
 	)
 
 	w.SetContent(container.NewCenter(content))
+}
+
+func MostrarCalendario(w fyne.Window, onSelect func(string)) {
+
+	selected := time.Now()
+	label := widget.NewLabel(selected.Format("2006-01-02"))
+
+	btnPrev := widget.NewButton("<", func() {
+		selected = selected.AddDate(0, -1, 0)
+		label.SetText(selected.Format("2006-01-02"))
+	})
+
+	btnNext := widget.NewButton(">", func() {
+		selected = selected.AddDate(0, 1, 0)
+		label.SetText(selected.Format("2006-01-02"))
+	})
+
+	btnSelect := widget.NewButton("Seleccionar", func() {
+		onSelect(selected.Format("2006-01-02"))
+	})
+
+	content := container.NewVBox(
+		container.NewHBox(btnPrev, layout.NewSpacer(), btnNext),
+		label,
+		btnSelect,
+	)
+
+	widget.ShowModalPopUp(
+		container.NewPadded(content),
+		w.Canvas(),
+	)
 }
