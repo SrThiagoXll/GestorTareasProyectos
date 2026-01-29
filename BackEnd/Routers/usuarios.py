@@ -1,7 +1,7 @@
 from fastapi import APIRouter,Query,Path,status
 from Modelos.Usuario import Usuario
 
-router = APIRouter(prefix="/Usuarios")
+router = APIRouter(prefix="/Usuarios",tags=["Usuarios locales"])
 
 usuarios = [
 

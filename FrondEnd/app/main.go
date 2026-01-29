@@ -1,53 +1,18 @@
 package main
 
 import (
-	pantalla "Gestor/interno/pantallas"
+	pantalla "Gestor/interno/Pantallas"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-	"fyne.io/fyne/v2/container"
-	"fyne.io/fyne/v2/widget"
 )
 
 func main() {
 	a := app.New()
-	w := a.NewWindow("Sistema de Usuarios")
-	w.Resize(fyne.NewSize(600, 400))
+	w := a.NewWindow("Gestor de Proyectos")
+	w.Resize(fyne.NewSize(900, 550))
 
-	// Contenido central
-	content := widget.NewLabelWithStyle(
-		"Bienvenido al Sistema\n\nSeleccione una opción del menú",
-		fyne.TextAlignCenter,
-		fyne.TextStyle{Bold: true},
-	)
+	pantalla.Principal(w)
 
-	w.SetContent(container.NewCenter(content))
-
-	// ===== MENÚ =====
-	menuRegistrar := fyne.NewMenuItem("Registrar Usuario", func() {
-		pantalla.Registro(w)
-	})
-
-	menuLogin := fyne.NewMenuItem("Login", func() {
-		pantalla.MostrarLogin(w)
-	})
-
-	menuSalir := fyne.NewMenuItem("Salir", func() {
-		w.Close()
-	})
-
-	menuUsuarios := fyne.NewMenu("Usuarios",
-		menuRegistrar,
-		menuLogin,
-	)
-
-	menuArchivo := fyne.NewMenu("Archivo", menuSalir)
-
-	mainMenu := fyne.NewMainMenu(
-		menuArchivo,
-		menuUsuarios,
-	)
-
-	w.SetMainMenu(mainMenu)
 	w.ShowAndRun()
 }

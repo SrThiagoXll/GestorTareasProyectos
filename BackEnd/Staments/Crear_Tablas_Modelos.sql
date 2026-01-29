@@ -3,14 +3,14 @@ CREATE TABLE Usuario (
     Nombre_Usuario VARCHAR(18) UNIQUE NOT NULL,
     Nombre_Completo VARCHAR(50) UNIQUE NOT NULL,
     Correo VARCHAR(100) UNIQUE NOT NULL,
-    Contraseña VARCHAR(100) UNIQUE NOT NULL,
+    Contraseï¿½a VARCHAR(100) UNIQUE NOT NULL,
     Rol VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE Proyecto (
     Proyecto_ID INT PRIMARY KEY IDENTITY(1,1),
     Nombre_Proyecto VARCHAR(50) NOT NULL,
-    Descripción VARCHAR(155) NOT NULL,
+    Descripciï¿½n VARCHAR(155) NOT NULL,
     Fecha_Inicio DATE NOT NULL,
     Fecha_Final DATE NOT NULL,
     Estado_Proyecto VARCHAR(30) NOT NULL
@@ -19,7 +19,7 @@ CREATE TABLE Proyecto (
 CREATE TABLE Tarea (
     Tarea_ID INT PRIMARY KEY IDENTITY(1,1),
     Nombre_Tarea VARCHAR(50) NOT NULL,
-    Descripción VARCHAR(155) NOT NULL,
+    Descripciï¿½n VARCHAR(155) NOT NULL,
     Fecha_Inicio DATE NOT NULL,
     Fecha_Final DATE NOT NULL,
     Estado_Tarea VARCHAR(30) NOT NULL,
@@ -38,8 +38,9 @@ CREATE TABLE Comentario (
 CREATE TABLE Actividad (
     Actividad_ID INT PRIMARY KEY IDENTITY(1,1),
     Tipo_Actividad VARCHAR(50) NOT NULL,
-    Descripción VARCHAR(155) NOT NULL,
+    DescripciÃ³n VARCHAR(155) NOT NULL,
     Fecha_Actividad DATE NOT NULL,
+    Tarea_ID INT FOREIGN KEY REFERENCES Tarea(Tarea_ID)
     Usuario_ID INT FOREIGN KEY REFERENCES Usuario(Usuario_ID)
 );
 
@@ -61,7 +62,7 @@ CREATE TABLE AsignacionTareas (
 CREATE TABLE SubTarea (
     SubTarea_ID INT PRIMARY KEY IDENTITY(1,1),
     Nombre_SubTarea VARCHAR(50) NOT NULL,
-    Descripción VARCHAR(155) NOT NULL,
+    Descripciï¿½n VARCHAR(155) NOT NULL,
     Fecha_Inicio DATE NOT NULL,
     Fecha_Final DATE NOT NULL
 );

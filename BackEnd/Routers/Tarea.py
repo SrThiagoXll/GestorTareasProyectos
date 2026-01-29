@@ -1,10 +1,10 @@
 from fastapi import APIRouter,Depends,HTTPException,status
-from Modelos.UsuarioSql import Tarea
+from Modelos.UsuarioSql import Tarea,Proyecto
 from sqlalchemy.orm import Session
 from Model.Tarea import TareaBase, TareaCrear
 from DB.coneccion import SessionLocal
 
-router = APIRouter(default="Tarea",prefix="/Tarea")
+router = APIRouter(tags=["Tarea"],prefix="/Tarea")
 
 def get_db():
     db = SessionLocal()
@@ -13,13 +13,13 @@ def get_db():
     finally:
         db.close
 
-@router.get("/Obtner_Tareas",summary="Obtener todos las Tareas")
-async def obtner_Tareas(db : Session = Depends(get_db)):          
+@router.get("/Obtener_Tareas",summary="Obtener todos las Tareas")
+async def obtener_Tareas(db : Session = Depends(get_db)):          
         tareas = db.query(Tarea).all()        
         return {"tareas":tareas}
 
-@router.get("/Obtner_Tarea/{Tarea_ID}",summary="Obtener El Id De la Tarea")
-async def obtner_Tarea(tarea_ID:int, db : Session = Depends(get_db)):          
+@router.get("/Obtener_Tarea/{Tarea_ID}",summary="Obtener El Id De la Tarea")
+async def obtener_Tarea(tarea_ID:int, db : Session = Depends(get_db)):          
         tarea = db.query(Tarea).filter(Tarea.Tarea_ID == tarea_ID).first()
         if tarea is None:
             raise HTTPException(status_code=404, detail="Tarea no Encontrada")

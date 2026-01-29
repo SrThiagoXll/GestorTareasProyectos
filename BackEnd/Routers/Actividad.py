@@ -1,10 +1,10 @@
 from fastapi import APIRouter,Depends,HTTPException,status
 from Modelos.UsuarioSql import Actividad
 from sqlalchemy.orm import Session
-from Model.Actividad import ActividadBase
+from Model.Actividad import ActividadBase, ActividadCrear
 from DB.coneccion import SessionLocal
 
-router = APIRouter(default="Actividad",prefix="/Actividad")
+router = APIRouter(prefix="/Actividad",tags=["Actividad"])
 
 def get_db():
     db = SessionLocal()
@@ -14,26 +14,26 @@ def get_db():
         db.close
 
 @router.get("/Obtener_Actividades",summary="Obtener todas las Actividades")
-async def obtner_Actividades(db : Session = Depends(get_db)):          
+async def obtener_Actividades(db : Session = Depends(get_db)):          
         actividad = db.query(Actividad).all()        
         return {"actividades":actividad}
 
 @router.get("/Obtener_Actividad{Actividad_ID}",summary="Obtener El Id De la Actividad")
-async def obtner_Actividad(Actividad_ID:int, db : Session = Depends(get_db)):          
+async def obtener_Actividad(Actividad_ID:int, db : Session = Depends(get_db)):          
         retribuir = db.query(Actividad).filter(Actividad.Actividad_ID == Actividad_ID).first()
         if retribuir is None:
             raise HTTPException(status_code=404, detail="Actividad no encontrada")
         return retribuir
 
 @router.post("/Crear_Actividad",status_code=status.HTTP_201_CREATED,response_model=ActividadBase,summary="Crea una nueva Actividad")
-async def crear_Actividad(actividad: ActividadBase, db: Session = Depends(get_db)):    
+async def crear_Actividad(actividad: ActividadCrear, db: Session = Depends(get_db)):    
     try:               
-        db_actividad = Actividad(
-            Actividad_ID=actividad.Actividad_ID,
+        db_actividad = Actividad(            
             Tipo_Actividad=actividad.Tipo_Actividad,
             Descripción =actividad.Descripción,
             Fecha_Actividad=actividad.Fecha_Actividad.strftime("%Y-%m-%d"),
-            Usuario_ID = actividad.Usuario_ID)
+            Usuario_ID = actividad.Usuario_ID
+            )
 
         db.add(db_actividad)
         db.commit()

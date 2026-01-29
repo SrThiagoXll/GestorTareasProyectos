@@ -9,7 +9,7 @@ class Usuario(Base):
     Nombre_Usuario = Column(String(18),unique=True,nullable=False)
     Nombre_Completo = Column(String(50),unique=True,nullable=False)
     Correo = Column(String(100),unique=True,nullable=False)
-    Contraseña = Column(String(100),unique=True,nullable=False)
+    Contraseña = Column(String(255),unique=True,nullable=False)
     Rol = Column(String(30),nullable=False)
 
     comentario = relationship("Comentario",back_populates="usuario")

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from DB.coneccion import SessionLocal
 from sqlalchemy import text
 
-router = APIRouter(prefix="/TareaUsuario")
+router = APIRouter(prefix="/TareaUsuario",tags=["Tarea Usuario"])
 
 def get_db():
     db = SessionLocal()

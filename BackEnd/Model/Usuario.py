@@ -15,5 +15,6 @@ class UsuarioBase(BaseModel):
     Contraseña:str
     Rol:str
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }

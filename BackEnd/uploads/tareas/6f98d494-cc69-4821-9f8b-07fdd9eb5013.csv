@@ -1,0 +1,51 @@
+Id_cliente;Nombre  ;Apellido;Compras;Fecha de nacimiento
+1;Carlos ;ESTRADA;4;02-ene-89
+2;Enrique;Villa;5;04/05/1998
+3;FIDEL;TIRADO;6;02-feb-90
+4;Christian ; Aldama;4;04/06/1995
+5;armando;ortega;3;12/12/1992
+6;Carlos ;sosa;8;12/05/1988
+7;Edgar;Zepeda;10;04-mar-85
+8;omar;gonzalez;2;02-ene-89
+9;ALEX;HURTADO;3;04/05/1998
+10;Juan Manuel;Sanchez;4;02-feb-90
+11;Luis;Jaramillo;6;04/06/1999
+12;Oscar;Herrera;7;12/12/1992
+13;Oswaldo ; Sánchez;7;12/05/1988
+14;DIEGO;CABALLERO;8;04-mar-87
+15;Vera; Kobelkowsky;2;07-ene-89
+16;Bernabe ;Guerrero;6;04/05/1998
+17; Jorge Carlos ;Díaz ;7;08-feb-90
+18;ERICKA;TIRADO;1;04/06/1996
+19;jorge;mirafuentes;9;12/11/1992
+20;JULIO;CORTAZA;10;12/05/1988
+21;ALAN;SANCHEZ;2;04-mar-87
+22;Uriel ;Corona;3;04-may-86
+23;Vera; Kobelkowsky;2;07-ene-89
+24;Edgar;Zepeda;10;04-mar-85
+25;;;;
+26;ERICKA;TIRADO;1;04/06/1996
+27;jorge;mirafuentes;9;12/11/1992
+28;JULIO;CORTAZA;10;12/05/1988
+29;ALAN;SANCHEZ;2;04-mar-87
+30;Uriel ;Corona;3;04-may-86
+31;omar;gonzalez;2;02-ene-89
+32;ALEX;HURTADO;3;04/05/1998
+33;Juan Manuel;Sanchez;4;02-feb-90
+34;Uriel ;Corona;3;04-may-86
+35;;;;
+36;FIDEL;TIRADO;6;02-feb-90
+37;Christian ; Aldama;4;04/06/1995
+38;armando;ortega;3;12/12/1992
+39;Carlos ;sosa;8;12/05/1988
+40;Edgar;Zepeda;10;04-mar-85
+41;omar;gonzalez;2;02-ene-89
+42;Vera; Kobelkowsky;2;07-ene-89
+43;Edgar;Zepeda;10;04-mar-85
+44;ERICKA;TIRADO;1;04/06/1996
+45;jorge;mirafuentes;9;12/11/1992
+46;JULIO;CORTAZA;10;12/05/1988
+47;ALAN;SANCHEZ;2;04-mar-87
+48;Uriel ;Corona;3;04-may-86
+49;Carlos ;sosa;8;12/05/1988
+50;Edgar;Zepeda;10;04-mar-85

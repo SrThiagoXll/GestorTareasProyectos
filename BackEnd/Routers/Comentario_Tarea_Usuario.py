@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from DB.coneccion import SessionLocal
 from sqlalchemy import text
 
-router = APIRouter(prefix="/ComentarioTareaUsuario")
+router = APIRouter(prefix="/ComentarioTareaUsuario",tags=["Comentario Tarea Usuario"])
 
 def get_db():
     db = SessionLocal()

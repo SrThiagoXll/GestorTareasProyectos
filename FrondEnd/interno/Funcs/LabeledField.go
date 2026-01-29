@@ -9,18 +9,6 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-// func LabeledField(label string, field fyne.CanvasObject) fyne.CanvasObject {
-// 	lbl := widget.NewLabel(label)
-// 	lbl.Alignment = fyne.TextAlignLeading
-// 	lbl.TextStyle = fyne.TextStyle{Bold: true}
-
-// 	// Limita el ancho del Entry
-// 	fieldContainer := container.NewHBox(
-// 		container.NewGridWrap(fyne.NewSize(220, 36), field),
-// 	)
-
-//		return container.NewVBox(lbl, fieldContainer)
-//	}
 func LabeledField(label string, field fyne.CanvasObject) fyne.CanvasObject {
 	return container.NewVBox(
 		widget.NewLabel(label),
@@ -29,16 +17,6 @@ func LabeledField(label string, field fyne.CanvasObject) fyne.CanvasObject {
 			field,
 		),
 	)
-}
-
-func MostrarHome(w fyne.Window) {
-	content := widget.NewLabelWithStyle(
-		"Bienvenido al Sistema\n\nSeleccione una opción del menú",
-		fyne.TextAlignCenter,
-		fyne.TextStyle{Bold: true},
-	)
-
-	w.SetContent(container.NewCenter(content))
 }
 
 func MostrarCalendario(w fyne.Window, onSelect func(string)) {
@@ -56,8 +34,11 @@ func MostrarCalendario(w fyne.Window, onSelect func(string)) {
 		label.SetText(selected.Format("2006-01-02"))
 	})
 
+	var popup *widget.PopUp
+
 	btnSelect := widget.NewButton("Seleccionar", func() {
 		onSelect(selected.Format("2006-01-02"))
+		popup.Hide() // 🔥 cerrar correctamente
 	})
 
 	content := container.NewVBox(
@@ -66,7 +47,7 @@ func MostrarCalendario(w fyne.Window, onSelect func(string)) {
 		btnSelect,
 	)
 
-	widget.ShowModalPopUp(
+	popup = widget.NewModalPopUp(
 		container.NewPadded(content),
 		w.Canvas(),
 	)

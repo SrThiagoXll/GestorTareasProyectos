@@ -4,10 +4,10 @@ from sqlalchemy.orm import Session
 from DB.coneccion import SessionLocal
 from Modelos.UsuarioSql import Usuario
 from Model.Usuario import UsuarioBase,UsuarioCreate
-from Segurity.seguridad import hash_password
+from Segurity.auth import hash_password
 
 
-router = APIRouter(default="Usuario",prefix="/Usuario")
+router = APIRouter(tags=["Usuario"],prefix="/Usuario")
 
 def get_db():
     db = SessionLocal()
@@ -16,13 +16,13 @@ def get_db():
     finally:
         db.close    
 
-@router.get("/Obtner_Usuarios",summary="Obtener todos los usuarios")
-async def obtner_Usuarios(db : Session = Depends(get_db)):          
+@router.get("/Obtener_Usuarios",summary="Obtener todos los usuarios")
+async def obtener_Usuarios(db : Session = Depends(get_db)):          
         usuarios = db.query(Usuario).all()        
         return {"usuarios":usuarios}
 
-@router.get("/Obtner_Usuario_Xml",summary="Obtener todos los Proyectos")
-async def obtner_Usuario_XML(db : Session = Depends(get_db)):
+@router.get("/Obtener_Usuario_Xml",summary="Obtener todos los usuarios")
+async def obtener_Usuario_XML(db : Session = Depends(get_db)):
         try:
             usuarios = db.query(Usuario).all()
 
@@ -40,15 +40,15 @@ async def obtner_Usuario_XML(db : Session = Depends(get_db)):
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/Obtner_Usuarios/{Usuario_ID}",summary="Obtener El Id del Usuario")
-async def obtner_Usuario(Usuario_ID:int, db : Session = Depends(get_db)):          
+@router.get("/Obtener_Usuarios/{Usuario_ID}",summary="Obtener El Id del Usuario")
+async def obtener_Usuario(Usuario_ID:int, db : Session = Depends(get_db)):          
         usuario = db.query(Usuario).filter(Usuario.Usuario_ID == Usuario_ID).first()
         if usuario is None:
             raise HTTPException(status_code=404, detail="Usuario no encontrado")
         return usuario
 
-@router.get("/Obtner_Usuarios_xml/{Usuario_ID}",summary="Obtener El Id del Usuario")
-async def obtner_Usuario_Xml(Usuario_ID:int, db : Session = Depends(get_db)):
+@router.get("/Obtener_Usuarios_xml/{Usuario_ID}",summary="Obtener El Id del Usuario")
+async def obtener_Usuario_Xml(Usuario_ID:int, db : Session = Depends(get_db)):
         try:        
             usuario = db.query(Usuario).filter(Usuario.Usuario_ID == Usuario_ID).first()
             if usuario is None:

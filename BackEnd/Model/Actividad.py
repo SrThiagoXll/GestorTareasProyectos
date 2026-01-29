@@ -7,3 +7,9 @@ class ActividadBase(BaseModel):
     Descripción:str
     Fecha_Actividad:date
     Usuario_ID:int
+
+class ActividadCrear(BaseModel):    
+    Tipo_Actividad:str
+    Descripción:str
+    Fecha_Actividad:date
+    Usuario_ID:int

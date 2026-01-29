@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from Model.Comentario import ComentarioBase
 from DB.coneccion import SessionLocal
 
-router = APIRouter(default="Comentario",prefix="/Comentario")
+router = APIRouter(tags=["Comentario"],prefix="/Comentario")
 
 def get_db():
     db = SessionLocal()
@@ -13,13 +13,13 @@ def get_db():
     finally:
         db.close
 
-@router.get("/Obtener_Comentarios",summary="Obtener todas las Comentarios")
-async def obtner_Comentarios(db : Session = Depends(get_db)):          
+@router.get("/Obtener_Comentarios",summary="Obtener todas los Comentarios")
+async def obtener_Comentarios(db : Session = Depends(get_db)):          
         comentario = db.query(Comentario).all()        
         return {"comentarios":comentario}
 
 @router.get("/Obtener_comentario{Comentario_ID}",summary="Obtener El Id Del comentario")
-async def obtner_Comentario(Comentario_ID:int, db : Session = Depends(get_db)):          
+async def obtener_Comentario(Comentario_ID:int, db : Session = Depends(get_db)):          
         retribuir = db.query(Comentario).filter(Comentario.Comentario_ID == Comentario_ID).first()
         if retribuir is None:
             raise HTTPException(status_code=404, detail="Comentario no encontrada")
@@ -42,7 +42,7 @@ async def crear_Comentario(comentario: ComentarioBase, db: Session = Depends(get
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Comentario No Creada. Error: {str(e)}")
 
-@router.put("/Actualizar_Comentario{Comentario_ID}",response_model=ComentarioBase,summary="Actualiza una Comentario existente")
+@router.put("/Actualizar_Comentario{Comentario_ID}",response_model=ComentarioBase,summary="Actualiza un Comentario existente")
 async def actualizar_Comentario(Comentario_ID: int, comentario: ComentarioBase, db: Session = Depends(get_db)):
     try:
         # Retrieve the existing project from the database
@@ -64,9 +64,9 @@ async def actualizar_Comentario(Comentario_ID: int, comentario: ComentarioBase, 
 
         return db_comentario
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error al actualizar la Comentario. Detalle: {str(e)}")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error al actualizar el Comentario. Detalle: {str(e)}")
     
-@router.delete("/Eliminar_Comentario/{Comentario_ID}",status_code=status.HTTP_204_NO_CONTENT,summary="Elimina una Comentario existente")
+@router.delete("/Eliminar_Comentario/{Comentario_ID}",status_code=status.HTTP_204_NO_CONTENT,summary="Elimina un Comentario existente")
 async def eliminar_Comentario(Actividad_ID: int, db: Session = Depends(get_db)):
     try:
         # Retrieve the existing project from the database
@@ -81,5 +81,5 @@ async def eliminar_Comentario(Actividad_ID: int, db: Session = Depends(get_db)):
 
         return {"message": "Comentario eliminado correctamente"}
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error al eliminar la Comentario. Detalle: {str(e)}")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error al eliminar el Comentario. Detalle: {str(e)}")
     

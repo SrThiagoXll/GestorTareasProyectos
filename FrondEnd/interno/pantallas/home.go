@@ -1,8 +1,8 @@
 package pantalla
 
 import (
+	controller "Gestor/interno/Api"
 	funcion "Gestor/interno/Funcs"
-	pantalla "Gestor/interno/pantallas/Proyecto"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
@@ -11,6 +11,11 @@ import (
 )
 
 var panelContenido *fyne.Container
+var (
+	lblTotalProyectos *widget.Label
+	lblPendientes     *widget.Label
+	lblFinalizados    *widget.Label
+)
 
 func PantallaInicio(w fyne.Window, nombreUsuario string) {
 
@@ -24,7 +29,7 @@ func PantallaInicio(w fyne.Window, nombreUsuario string) {
 	lblUsuario := widget.NewLabel("Usuario: " + nombreUsuario)
 
 	btnSalir := widget.NewButton("Salir", func() {
-		funcion.MostrarHome(w)
+		Principal(w)
 	})
 
 	header := container.NewHBox(
@@ -34,20 +39,18 @@ func PantallaInicio(w fyne.Window, nombreUsuario string) {
 		btnSalir,
 	)
 
-	// ===== PANEL CENTRAL =====
-	panelContenido = container.NewVBox(
-		widget.NewLabelWithStyle(
-			"Proyecto: Demo",
-			fyne.TextAlignLeading,
-			fyne.TextStyle{Bold: true},
-		),
+	proyectos := controller.ObtenerProyectos()
+	resumen := funcion.CrearResumen()
+	funcion.CalcularResumen(proyectos)
+
+	panelCentral := container.NewVBox(
+		resumen,
 		widget.NewSeparator(),
-		widget.NewLabel("Seleccione una opción del menú"),
 	)
 
 	// ===== SIDEBAR =====
 	btnNuevo := widget.NewButton("➕ Nuevo Proyecto", func() {
-		pantalla.MostrarCrearProyectoEnPanel(w, panelContenido)
+		MostrarCrearProyectoEnPanel(w, panelCentral)
 	})
 
 	sidebar := container.NewVBox(
@@ -64,7 +67,7 @@ func PantallaInicio(w fyne.Window, nombreUsuario string) {
 	// ===== LAYOUT GENERAL =====
 	body := container.NewHSplit(
 		container.NewPadded(sidebar),
-		container.NewPadded(panelContenido),
+		container.NewPadded(panelCentral),
 	)
 	body.Offset = 0.25
 

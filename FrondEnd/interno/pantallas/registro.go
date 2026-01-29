@@ -73,6 +73,7 @@ func Registro(w fyne.Window) {
 			PantallaInicio(w, usuario.Nombre_Completo)
 		})
 
+		d.Show()
 	})
 
 	btnLimpiar := widget.NewButton("LIMPIAR", func() {
@@ -83,7 +84,7 @@ func Registro(w fyne.Window) {
 		rol.ClearSelected()
 	})
 	btnCerrar := widget.NewButton("CERRAR", func() {
-		funcion.MostrarHome(w)
+		Principal(w)
 	})
 
 	buttons := container.NewHBox(

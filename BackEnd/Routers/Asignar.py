@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from Model.AsignarTareas import AsignarBase
 from DB.coneccion import SessionLocal
 
-router = APIRouter(default="Tarea",prefix="/Retribucion")
+router = APIRouter(prefix="/Retribucion",tags=["Retribucion"])
 
 def get_db():
     db = SessionLocal()
@@ -14,12 +14,12 @@ def get_db():
         db.close
 
 @router.get("/Obtener_Retribuciones",summary="Obtener todas las Retribuciones")
-async def obtner_Retribuciones(db : Session = Depends(get_db)):          
+async def obtener_Retribuciones(db : Session = Depends(get_db)):          
         retribuir = db.query(Asignacion).all()        
         return {"retribuciones":retribuir}
 
 @router.get("/Obtener_Retribucion{Asignar_ID}",summary="Obtener El Id De la Retribucion")
-async def obtner_Retribucion(Asignar_ID:int, db : Session = Depends(get_db)):          
+async def obtener_Retribucion(Asignar_ID:int, db : Session = Depends(get_db)):          
         retribuir = db.query(Asignacion).filter(Asignacion.Asignar_ID == Asignar_ID).first()
         if retribuir is None:
             raise HTTPException(status_code=404, detail="Retribucion no encontrada")

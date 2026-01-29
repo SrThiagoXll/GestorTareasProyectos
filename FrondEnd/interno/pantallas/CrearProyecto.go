@@ -19,10 +19,10 @@ func MostrarCrearProyectoEnPanel(w fyne.Window, panel *fyne.Container) {
 	entryDescripcion.SetPlaceHolder("Descripción del proyecto")
 
 	entryFechaInicio := widget.NewEntry()
-	entryFechaInicio.Disable()
+	//entryFechaInicio.Disable()
 
 	entryFechaFinal := widget.NewEntry()
-	entryFechaFinal.Disable()
+	//entryFechaFinal.Disable()
 
 	estadoSelect := widget.NewSelect(
 		[]string{"Pendiente", "En Progreso", "Finalizado"},
@@ -31,8 +31,10 @@ func MostrarCrearProyectoEnPanel(w fyne.Window, panel *fyne.Container) {
 	estadoSelect.SetSelected("Pendiente")
 
 	// ---------- Selector de fecha ----------
-	mostrarSelectorFecha := func(target *widget.Entry) {
-		funcion.MostrarCalendario(w, target.SetText)
+	mostrarSelectorFecha := func(entry *widget.Entry) {
+		funcion.MostrarCalendario(w, func(fecha string) {
+			entry.SetText(fecha)
+		})
 	}
 
 	// ---------- Botones calendario ----------
