@@ -10,8 +10,7 @@ class ProyectoBase(BaseModel):
     Estado_Proyecto: str # por hacer, en progreso, completado, etc.
 
 
-class ProyectoCrear(BaseModel):
-    
+class ProyectoCrear(BaseModel):    
     Nombre_Proyecto:str
     Descripción:str
     Fecha_Inicio:date

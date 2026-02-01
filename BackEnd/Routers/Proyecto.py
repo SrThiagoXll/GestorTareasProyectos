@@ -66,10 +66,8 @@ async def obtener_Proyecto(
     response_model=TareasResponse
 )
 async def obtener_Tarea_Por_Proyecto(
-    Proyecto_ID: int,
-    db: Session = Depends(get_db)
-):
-    
+    Proyecto_ID: int,db: Session = Depends(get_db),current_user: Usuario = Depends(get_current_user)
+):   
 
     tareas = db.query(Tarea).filter(
         Tarea.Proyecto_ID == Proyecto_ID

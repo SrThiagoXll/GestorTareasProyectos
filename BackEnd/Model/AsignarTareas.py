@@ -7,3 +7,11 @@ class AsignarBase(BaseModel):
     Fecha_Vencimiento:date
     Tarea_ID:int
     Usuario_ID:int
+
+class AsignarCreate(BaseModel):
+    Fecha_Asignacion:date        
+    Fecha_Vencimiento:date
+    Tarea_ID:int
+    Usuario_ID:int
+
+    

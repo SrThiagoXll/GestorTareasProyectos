@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends,status
 from fastapi.responses import Response
 from sqlalchemy.orm import Session
+from Routers.Login import get_current_user
 from DB.coneccion import SessionLocal
 from Modelos.UsuarioSql import Usuario
 from Model.Usuario import UsuarioBase,UsuarioCreate
@@ -17,7 +18,7 @@ def get_db():
         db.close    
 
 @router.get("/Obtener_Usuarios",summary="Obtener todos los usuarios")
-async def obtener_Usuarios(db : Session = Depends(get_db)):          
+async def obtener_Usuarios(db : Session = Depends(get_db),current_user = Depends(get_current_user)):          
         usuarios = db.query(Usuario).all()        
         return {"usuarios":usuarios}
 

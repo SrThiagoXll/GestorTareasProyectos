@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException,status
 from sqlalchemy.orm import Session
+from Model.Usuario import UsuarioOut
 from DB.coneccion import SessionLocal, init_db
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import jwt
@@ -70,13 +71,7 @@ async def login(
         Usuario.Nombre_Usuario == data.username
     ).first()
 
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Usuario o contraseña incorrectos"
-        )
-
-    if not verify_password(data.password, user.Contraseña):
+    if not user or not verify_password(data.password, user.Contraseña):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Usuario o contraseña incorrectos"
@@ -84,12 +79,13 @@ async def login(
 
     access_token = create_access_token(
         data={
-            "sub": str(user.Usuario_ID),   # 👈 ID del usuario
-            "username": user.Nombre_Usuario,        
+            "sub": str(user.Usuario_ID),
+            "username": user.Nombre_Usuario
         }
     )
 
     return {
         "access_token": access_token,
-        "token_type": "bearer"
+        "token_type": "bearer",
+        "usuario": UsuarioOut.model_validate(user)
     }

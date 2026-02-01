@@ -18,3 +18,12 @@ class UsuarioBase(BaseModel):
     model_config = {
         "from_attributes": True
     }
+
+class UsuarioOut(UsuarioBase):
+    Usuario_ID: int
+    Nombre_Completo: str
+    Correo: str | None = None
+
+    model_config = {
+        "from_attributes": True
+    }
