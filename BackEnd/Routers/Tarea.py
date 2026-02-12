@@ -1,5 +1,6 @@
 from fastapi import APIRouter,Depends,HTTPException,status
-from Modelos.UsuarioSql import Tarea,Proyecto
+from Routers.Login import get_current_user
+from Modelos.UsuarioSql import Tarea
 from sqlalchemy.orm import Session
 from Model.Tarea import TareaBase, TareaCrear
 from DB.coneccion import SessionLocal
@@ -44,8 +45,8 @@ async def crear_Tarea(tarea: TareaCrear, db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Tarea No Creado. Error: {str(e)}")
        
-@router.put("/Actualizar_Tarea{Tarea_ID}",response_model=TareaBase,summary="Actualiza un Tarea existente")
-async def actualizar_Tarea(Tarea_ID: int, tarea: TareaCrear, db: Session = Depends(get_db)):
+@router.put("/Actualizar_Tarea/{Tarea_ID}",response_model=TareaBase,summary="Actualiza un Tarea existente")
+async def actualizar_Tarea(Tarea_ID: int, tarea: TareaCrear, db: Session = Depends(get_db),current_user: Tarea = Depends(get_current_user)) :
     try:
         # Retrieve the existing project from the database
         db_tarea = db.query(Tarea).filter(Tarea.Tarea_ID == Tarea_ID).first()

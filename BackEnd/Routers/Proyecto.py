@@ -144,9 +144,9 @@ async def crear_Proyecto(
 )
 async def actualizar_Proyecto(
     Proyecto_ID: int,
-    proyecto: ProyectoBase,
+    proyecto: ProyectoCrear,
     db: Session = Depends(get_db),
-    current_user: Usuario = Depends(get_current_user),
+    current_user: Proyecto = Depends(get_current_user),
 ):
     try:
         # Retrieve the existing project from the database
@@ -186,7 +186,7 @@ async def actualizar_Proyecto(
 async def eliminar_Proyecto(
     Proyecto_ID: int,
     db: Session = Depends(get_db),
-    current_user: Usuario = Depends(get_current_user),
+    current_user: Proyecto = Depends(get_current_user),
 ):
     try:
         # Retrieve the existing project from the database
