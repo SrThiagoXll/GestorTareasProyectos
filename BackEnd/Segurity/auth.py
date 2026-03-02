@@ -1,5 +1,6 @@
 import os
 from datetime import datetime, timedelta, timezone
+import re
 
 import jwt
 from jwt import PyJWTError
@@ -17,7 +18,10 @@ def hash_password(password: str) -> str:
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+    try:
+        return pwd_context.verify(plain_password, hashed_password)
+    except Exception:
+        return False
 
 
 def crear_Token(data: dict):
@@ -43,3 +47,15 @@ def decode_token(token: str):
         return payload
     except PyJWTError:
         return None
+
+def validar_password(password: str) -> tuple[bool, str]:
+
+    if len(password) < 5:
+        return False, "La contraseña debe tener mínimo 5 caracteres"
+
+    patron = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$'
+
+    if not re.match(patron, password):
+        return False, "Debe tener al menos una mayúscula, una minúscula y un número"
+    
+    return True,""    

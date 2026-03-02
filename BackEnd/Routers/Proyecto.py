@@ -16,7 +16,7 @@ def get_db():
     try:
         yield db
     finally:
-        db.close
+        db.close()
 
 
 @router.get("/Obtener_Proyectos", summary="Obtener todos los Proyectos")

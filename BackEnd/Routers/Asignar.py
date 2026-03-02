@@ -11,7 +11,7 @@ def get_db():
     try:
         yield db
     finally:
-        db.close
+        db.close()
 
 @router.get("/Obtener_Asignaciones",summary="Obtener todas las Asignaciones")
 async def obtener_Asignaciones(db : Session = Depends(get_db)):          

@@ -10,7 +10,7 @@ def get_db():
     try:
         yield db
     finally:
-        db.close
+        db.close()
 
 @router.get("/Obtener_Actividad_Usuario")
 async def Obtener_Actividad_Usuario(db: Session = Depends(get_db)):

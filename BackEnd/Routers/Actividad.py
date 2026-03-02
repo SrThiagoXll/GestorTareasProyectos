@@ -11,7 +11,7 @@ def get_db():
     try:
         yield db
     finally:
-        db.close
+        db.close()
 
 @router.get("/Obtener_Actividades",summary="Obtener todas las Actividades")
 async def obtener_Actividades(db : Session = Depends(get_db)):          

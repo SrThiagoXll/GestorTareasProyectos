@@ -12,7 +12,7 @@ def get_db():
     try:
         yield db
     finally:
-        db.close
+        db.close()
 
 @router.post("/Crear_Proyecto_Tareas", status_code=status.HTTP_201_CREATED)
 async def Crear_Proyecto_Tareas(

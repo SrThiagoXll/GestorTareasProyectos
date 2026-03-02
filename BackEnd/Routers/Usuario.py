@@ -5,7 +5,7 @@ from Routers.Login import get_current_user
 from DB.coneccion import SessionLocal
 from Modelos.UsuarioSql import Usuario
 from Model.Usuario import UsuarioBase,UsuarioCreate
-from Segurity.auth import hash_password
+from Segurity.auth import hash_password, validar_password
 
 
 router = APIRouter(tags=["Usuario"],prefix="/Usuario")
@@ -15,7 +15,7 @@ def get_db():
     try:
         yield db
     finally:
-        db.close    
+        db.close()    
 
 @router.get("/Obtener_Usuarios",summary="Obtener todos los usuarios")
 async def obtener_Usuarios(db : Session = Depends(get_db),current_user = Depends(get_current_user)):          
@@ -67,6 +67,19 @@ async def obtener_Usuario_Xml(Usuario_ID:int, db : Session = Depends(get_db)):
 
 @router.post("/Crear_Usuario",response_model=UsuarioBase,summary="Crea un nuevo usuario",status_code=status.HTTP_201_CREATED)
 async def crear_Usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
+
+    validar_password(usuario.Contraseña)
+
+    usuario_existente = db.query(Usuario).filter(
+        Usuario.Nombre_Usuario == usuario.Nombre_Usuario
+    ).first()
+
+    if usuario_existente:
+        raise HTTPException(
+            status_code=400,
+            detail="El nombre de usuario ya existe"
+        )
+    
     password_hash = hash_password(usuario.Contraseña)
     
     db_usuario = Usuario(
@@ -82,7 +95,7 @@ async def crear_Usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
     
 
 @router.put("/Actualizar_usuario/{Usuario_ID}",response_model=UsuarioBase, summary="Actualiza un usuario existente")
-async def actualizar_usuario(Usuario_ID: int, usuario_actualizado: UsuarioBase, db: Session = Depends(get_db)):
+async def actualizar_usuario(Usuario_ID: int, usuario_actualizado: UsuarioCreate, db: Session = Depends(get_db),current_user: Usuario = Depends(get_current_user)):
     db_usuario = db.query(Usuario).filter(Usuario.Usuario_ID == Usuario_ID).first() 
     
     if db_usuario:
@@ -99,8 +112,8 @@ async def actualizar_usuario(Usuario_ID: int, usuario_actualizado: UsuarioBase, 
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Usuario no encontrado")
     
-@router.delete("/Eliminar_Proyecto/{Usuario_ID}",status_code=status.HTTP_204_NO_CONTENT,summary="Elimina un usuario existente")
-async def eliminar_Proyecto(Usuario_ID: int, db: Session = Depends(get_db)):
+@router.delete("/Eliminar_Usuario/{Usuario_ID}",status_code=status.HTTP_204_NO_CONTENT,summary="Elimina un usuario existente")
+async def eliminar_Usuario(Usuario_ID: int, db: Session = Depends(get_db)):
     try:
         # Retrieve the existing project from the database
         db_usuario = db.query(Usuario).filter(Usuario.Usuario_ID == Usuario_ID).first()

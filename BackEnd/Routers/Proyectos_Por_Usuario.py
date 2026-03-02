@@ -10,7 +10,7 @@ def get_db():
     try:
         yield db
     finally:
-        db.close
+        db.close()
 
 @router.get("/Obtener_Proyecto_Por_Usuario/{Usuario_ID}")
 async def Obtener_Proyecto_Por_Usuario(

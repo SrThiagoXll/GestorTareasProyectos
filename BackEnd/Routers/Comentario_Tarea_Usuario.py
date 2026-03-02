@@ -10,7 +10,7 @@ def get_db():
     try:
         yield db
     finally:
-        db.close
+        db.close()
 
 @router.get("/Obtener_Comentario_Tarea_Usuario")
 async def Obtener_Comentario_Tarea_Usuario(db: Session = Depends(get_db)):

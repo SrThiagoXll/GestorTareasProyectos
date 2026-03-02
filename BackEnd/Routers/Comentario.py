@@ -11,7 +11,7 @@ def get_db():
     try:
         yield db
     finally:
-        db.close
+        db.close()
 
 @router.get("/Obtener_Comentarios",summary="Obtener todas los Comentarios")
 async def obtener_Comentarios(db : Session = Depends(get_db)):          

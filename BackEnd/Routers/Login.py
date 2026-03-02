@@ -1,16 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException,status
 from sqlalchemy.orm import Session
 from Model.Usuario import UsuarioOut
-from DB.coneccion import SessionLocal, init_db
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from DB.coneccion import SessionLocal
+from fastapi.security import OAuth2PasswordBearer
 import jwt
 
 
 from Model.Login import LoginRequest
 from Modelos.UsuarioSql import Usuario
 from Segurity.auth import verify_password,create_access_token, SECRET_KEY, ALGORITHM
-
-
 
 router = APIRouter(tags=["Login"])
 
@@ -19,7 +17,7 @@ def get_db():
     try:
         yield db
     finally:
-        db.close
+        db.close()
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
@@ -53,6 +51,16 @@ def get_current_user(
 
     return user
 
+def authenticate_user(db_user, password: str):
+
+    if not db_user:
+        return False
+
+    if not verify_password(password, db_user.Contraseña):
+        return False
+
+    return db_user
+
 
 @router.get("/me")
 async def me(user: Usuario = Depends(get_current_user)):
@@ -67,11 +75,18 @@ async def login(
     data: LoginRequest,
     db: Session = Depends(get_db)
 ):
+
     user = db.query(Usuario).filter(
         Usuario.Nombre_Usuario == data.username
     ).first()
 
-    if not user or not verify_password(data.password, user.Contraseña):
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Usuario o contraseña incorrectos"
+        )
+    
+    if not verify_password(data.password, user.Contraseña):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Usuario o contraseña incorrectos"

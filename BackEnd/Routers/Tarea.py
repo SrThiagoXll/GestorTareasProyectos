@@ -12,7 +12,7 @@ def get_db():
     try:
         yield db
     finally:
-        db.close
+        db.close()
 
 @router.get("/Obtener_Tareas",summary="Obtener todos las Tareas")
 async def obtener_Tareas(db : Session = Depends(get_db)):          
